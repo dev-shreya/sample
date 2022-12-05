@@ -1,10 +1,7 @@
 # CPSC449Project2 - Group 20
 
 ### Group Members:
-##### Arati Maurya
 ##### Shreya Bhattacharya
-##### Aaditya Chaudhari
-##### Ayush Bharadawaj
 
 ---
 ## **Setting up NginxConfig**
