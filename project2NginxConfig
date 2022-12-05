@@ -1,0 +1,33 @@
+upstream gameservice { server 127.0.0.1:5100; server 127.0.0.1:5101; server 127.0.0.1:5102; }
+
+	server {
+	       listen 80;
+	       listen [::]:80;
+
+	       server_name games.local.gd;
+
+
+	        location / {
+                        auth_request /auth;
+                        auth_request_set $auth_status $upstream_status;
+                        proxy_pass  http://gameservice;
+                }
+
+   		location /user/registration {
+                       proxy_pass http://127.0.0.1:5000/user/registration;
+                }
+                
+                location /top_10_user {
+                       proxy_pass http://127.0.0.1:5200/top_10_user;
+                }
+	           
+   
+                location = /auth {
+                           internal;
+                         proxy_pass              http://127.0.0.1:5000/authentication;
+                         proxy_pass_request_body off;
+                         proxy_set_header        Content-Length "";
+                         proxy_set_header        X-Original-URI $request_uri;
+	        }
+	       
+	}
